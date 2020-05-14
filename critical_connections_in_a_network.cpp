@@ -4,8 +4,14 @@ public:
     /*
         visit all child not including parent, and return the min depth of the child
     */
-    void dfs(int current_node, int parent_node, int depth, vector<vector<int>>& adj_list, vector<vector<int>>& bridges, 
-        vector<int>& idx_map,vector<int>& jump_map, vector<bool>& visited) {
+    void dfs(   int current_node,
+                int parent_node,
+                int depth,
+                vector<vector<int>>& adj_list,
+                vector<vector<int>>& bridges,
+                vector<int>& idx_map,
+                vector<int>& jump_map,
+                vector<bool>& visited) {
 
         visited[current_node] = true;
         idx_map[current_node] = jump_map[current_node] = ++depth;

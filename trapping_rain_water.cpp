@@ -10,27 +10,46 @@ public:
         return sum;
     }
     int trap(vector<int>& height) {
-        if (height.size() < 3) return 0;
+        int len = height.size();
+        if (len < 3) return 0;
         // get tips
         vector<int> tips;
-        if(height[0] > 0 && height[0] > height[1]) tips.push_back(0);
-        for (int i = 1; i < height.size()-1; ++i) {
-            if (height[i] > height[i-1] && height[i] > height[i+1]) tips.push_back(i);
-        }
-        if(height[height.size()-1] > 0 && height[height.size()-1] > height[height.size()-2]) tips.push_back(height.size()-1);
+        int cur_max = 0;
+        int max_id;
+        unordered_map <int, int> idx_val;
 
-        // delete local max
-        for (int j = 1; j < tips.size()-1; j++) {
-            if (tips[j] < tips[j-1] && tips[j] < tips[j+1]) {
-                tips.erase(tips.begin()+j);
-                cout << j <<endl;
+        for (int i = 0; i < len; i++) {
+            if (height[i] >= cur_max) {
+                // cout << i << " " << height[i] << endl;
+                idx_val[i] = height[i];
+                cur_max = height[i];
+                tips.push_back(i);
+                max_id = i;
             }
         }
-        
+
+        vector<int> back_tips;
+        cur_max = 0;
+        for (int i = 1; i < len-max_id; i++) {
+            if (height[len-i] >= cur_max) {
+                // cout << len - i << " " << height[len-i] << endl;
+                cur_max = height[len-i];
+                back_tips.push_back(i);
+            }
+        }
+        // cout << "                   " << endl;
+        for (int i = 1; i <= back_tips.size() ; i++) {
+            // cout << back_tips.size()-i << " "<< len - back_tips[back_tips.size()-i] << endl;
+            tips.push_back(len - back_tips[back_tips.size()-i]);
+        }
+      
         //calculate sum
+        // cout << "------------------------" << endl;
         int total_sum = 0;
         for (int i = 0; i < tips.size()-1; ++i) {
+            // cout << tips[i] << "  " << tips[i+1] << endl;
             total_sum += subwater(tips[i], tips[i+1], height);
+            // cout << tips[i] << " " << tips[i+1] << endl;
         }
         return total_sum;
     }

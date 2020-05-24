@@ -145,7 +145,7 @@ public:
         }
 
         if (depth_map[current] == level && parent != -1) {
-            cout << parent << " " << current << endl;
+            // cout << parent << " " << current << endl;
             ret_link.push_back({parent, current});
         }
         

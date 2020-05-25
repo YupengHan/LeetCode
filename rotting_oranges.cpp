@@ -56,3 +56,208 @@ public:
         }
     }
 };
+
+/*
+class Point{
+public:
+    int i;
+    int j;
+    int time;
+    Point(int y,int x,int t){
+        i = y;
+        j = x;
+        time = t;
+    }
+};
+
+class Solution {
+public:
+    bool isValid(int i,int j,int m,int n){
+        if(i<0 || i>=m || j<0 || j>=n){
+            return false;
+        }
+        
+        return true;
+    }
+    
+    int orangesRotting(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        int fresh = 0;
+        queue<Point> q;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j] == 1) fresh++;
+                else if(grid[i][j] == 2){
+                    Point p(i,j,0);
+                    q.push(p);
+                } 
+            }
+        }
+        if(fresh==0) return 0;
+        
+        int min = 0;
+        while(!q.empty()){
+            Point p = q.front();
+            q.pop();
+            int i = p.i;
+            int j = p.j;
+            int t = p.time;
+            min = max(min,t);
+            if(isValid(i+1,j,m,n) && grid[i+1][j]==1){
+                Point n(i+1,j,t+1);
+                q.push(n);
+                fresh--;
+                grid[i+1][j] = 2;
+            }
+            if(isValid(i,j+1,m,n) && grid[i][j+1]==1){
+                Point n(i,j+1,t+1);
+                q.push(n);
+                fresh--;
+                grid[i][j+1] = 2;
+            }
+            if(isValid(i-1,j,m,n) && grid[i-1][j]==1){
+                Point n(i-1,j,t+1);
+                q.push(n);
+                fresh--;
+                grid[i-1][j] = 2;
+            }
+            if(isValid(i,j-1,m,n) && grid[i][j-1]==1){
+                Point n(i,j-1,t+1);
+                q.push(n);
+                fresh--;
+                grid[i][j-1] = 2;
+            }
+        }
+        if(fresh != 0){
+            return -1;
+        }
+        
+        return min;
+    }
+};
+
+*/
+
+
+/*
+更NB的
+
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int n=grid.size(),m=grid[0].size(),fresh=0;
+        queue<pair<int,int>> q;
+        for(int i=0; i<n; ++i)
+        {
+            for(int j=0; j<m; ++j)
+            {
+                if(grid[i][j]==2)
+                    q.push({i,j});
+                else if(grid[i][j]==1)
+                    fresh++;
+            }
+        }
+        if(!fresh)
+            return 0;
+        int minutes=0,l=q.size();
+        cout<<l;
+        while(!q.empty())
+        {
+            int x=q.front().first;  int y=q.front().second; q.pop();
+            if((x-1)>=0 && grid[x-1][y]==1)
+            {
+                grid[x-1][y]=2;
+                fresh--;
+                q.push({x-1,y});
+            }
+            if((x+1)<n && grid[x+1][y]==1)
+            {
+                grid[x+1][y]=2;
+                fresh--;
+                q.push({x+1,y});
+            }
+            if((y-1)>=0 && grid[x][y-1]==1)
+            {
+                grid[x][y-1]=2;
+                fresh--;
+                q.push({x,y-1});
+            }
+            if((y+1)<m && grid[x][y+1]==1)
+            {
+                grid[x][y+1]=2;
+                fresh--;
+                q.push({x,y+1});
+            }
+            l--;
+            if(!l)
+            {
+                minutes++;
+                l=q.size();
+                cout<<l;
+            }
+        }
+        return (fresh==0)?minutes-1:-1;
+    }
+};
+*/
+
+
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int n=grid.size(),m=grid[0].size(),fresh=0;
+        queue<pair<int,int>> q;
+        for(int i=0; i<n; ++i)
+        {
+            for(int j=0; j<m; ++j)
+            {
+                if(grid[i][j]==2)
+                    q.push({i,j});
+                else if(grid[i][j]==1)
+                    fresh++;
+            }
+        }
+        if(!fresh)
+            return 0;
+        int minutes=0,l=q.size();
+        cout<<l << endl;
+        while(!q.empty())
+        {
+            int x=q.front().first;  int y=q.front().second; q.pop();
+            if((x-1)>=0 && grid[x-1][y]==1)
+            {
+                grid[x-1][y]=2;
+                fresh--;
+                q.push({x-1,y});
+            }
+            if((x+1)<n && grid[x+1][y]==1)
+            {
+                grid[x+1][y]=2;
+                fresh--;
+                q.push({x+1,y});
+            }
+            if((y-1)>=0 && grid[x][y-1]==1)
+            {
+                grid[x][y-1]=2;
+                fresh--;
+                q.push({x,y-1});
+            }
+            if((y+1)<m && grid[x][y+1]==1)
+            {
+                grid[x][y+1]=2;
+                fresh--;
+                q.push({x,y+1});
+            }
+            l--;
+            if(!l)
+            {
+                minutes++;
+                l=q.size();
+                
+            }
+            cout<<l << " " << minutes << " "<< x << " " << y << endl;
+        }
+        return (fresh==0)?minutes-1:-1;
+    }
+};

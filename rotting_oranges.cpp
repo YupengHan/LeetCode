@@ -221,7 +221,7 @@ public:
         if(!fresh)
             return 0;
         int minutes=0,l=q.size();
-        cout<<l << endl;
+        cout<< l << endl;
         while(!q.empty())
         {
             int x=q.front().first;  int y=q.front().second; q.pop();
@@ -254,9 +254,10 @@ public:
             {
                 minutes++;
                 l=q.size();
+                cout << "inloop" << endl;
                 
             }
-            cout<<l << " " << minutes << " "<< x << " " << y << endl;
+            cout<< l << " " << minutes << " "<< x << " " << y << endl;
         }
         return (fresh==0)?minutes-1:-1;
     }

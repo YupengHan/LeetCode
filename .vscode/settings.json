@@ -3,6 +3,17 @@
     "files.associations": {
         "vector": "cpp",
         "ostream": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "initializer_list": "cpp",
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "algorithm": "cpp",
+        "iostream": "cpp",
+        "*.tcc": "cpp"
     }
 }

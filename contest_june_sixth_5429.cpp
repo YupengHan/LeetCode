@@ -1,6 +1,6 @@
 class mycompare{
 public:
-    bool mycompare(pair<int, int> a, pair<int, int> b) {
+    bool operator() (pair<int, int> a, pair<int, int> b) {
         if (a.first != b.first) {
             return a.first > b.first;
         }
@@ -9,7 +9,7 @@ public:
         }
         
     }
-}
+};
 class Solution {
 public:
     vector<int> getStrongest(vector<int>& arr, int k) {
@@ -17,6 +17,7 @@ public:
             addNum(arr[i]);
         }
         double m = findMedian();
+        cout << m << endl;
         for (int i = 0; i < arr.size(); i++) {
             int tmp = arr[i];
             st.push(make_pair(abs(tmp-m), tmp));

@@ -2,26 +2,40 @@ class Solution {
 public:
     string numberToWords(int num) {
         if (num == 0) return "Zero";
-        ret = ""
+        string ret = "";
         if (num >= 1000000000) {
             int n_ = num/1000000000;
-            num -= (num/1000000000)*1000000000;
+            cout << n_ << endl;
+            num -= n_*1000000000;
             ret += threebit(n_) + " Billion ";
+            cout << ret << endl;
         }
         if (num >= 1000000) {
+            cout << num << endl;
             int n_ = num/1000000;
-            num -= (num/1000000000)*1000000000;
-            ret += threebit(n_) + " Billion ";
+            num -= n_*1000000;
+            ret += threebit(n_) + " Million ";
+        }
+        if (num >= 1000) {
+            cout << num << endl;
+            int n_ = num/1000;
+            num -= n_*1000;
+            ret += threebit(n_) + " Thousand ";
+        }
+        if (num >= 1) {
+            cout << num << endl;
+            ret += threebit(num);
         }
         
-
         
-        return threebit(num);
+
+        if (ret[ret.size()-1] == ' ') return ret.substr(0, ret.size()-1);
+        return ret;
     }
     string threebit(int num) {
         string myodd[10] = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
-        string myeven[10] = {"", "Ten", "Twenty", "Thirty", "Fourty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninty"};
-        string tenp[10] = {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Ninteen"};
+        string myeven[10] = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+        string tenp[10] = {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
         string ret = "";
         int b[3];
         b[0] = num/100;

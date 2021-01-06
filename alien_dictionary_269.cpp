@@ -86,3 +86,128 @@ public:
         
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Topological Sort + DFS
+
+class Solution {
+private: 
+    int not_visit = 0;
+    int working_on = 1;
+    int visit_compelte = 2;
+    int cycle_detect = -2;
+public:
+    string alienOrder(vector<string>& words) {
+        if (words.size() == 1) return words[0];
+        int char_num = 0;
+        unordered_map<char, int> visit_map;
+        unordered_map<char, vector<char>> Graph;
+        // Build Graph
+        for (auto word : words) {
+            for (auto c : word) {
+                if (!visit_map.count(c)) {
+                    visit_map[c] = 0;
+                    char_num++;
+                }
+            }
+        }
+        for (int i = 1; i < words.size(); ++i) {
+            build_graph(words[i-1], words[i], Graph);
+        }
+
+        string alien_dict(char_num, '0');
+        int idx = char_num - 1;
+
+        unordered_map<char, int>::iterator iter;
+        for (iter = visit_map.begin(); iter != visit_map.end(); ++iter) {
+            char c_char = iter->first;
+            // cout << c_char << endl;
+            if (iter->second == 0) {
+                // cout << c_char << " " << iter->second << endl;
+                idx = dfs(c_char, idx, alien_dict, visit_map, Graph);
+                if (idx == cycle_detect) return "";
+            }
+        }
+        // cout << "idx " << idx << endl;
+        if (idx != -1) return "";
+        return alien_dict;
+    }
+
+    void build_graph(string w1, string w2, unordered_map<char, vector<char>>& Graph) {
+        for (int i = 0; i < w1.size(); ++i) {
+            if (w1[i] != w2[i]) {
+                Graph[w1[i]].push_back(w2[i]);
+                return;
+            }
+        }
+    }
+
+    int dfs(char c_char, int idx, string& alien_dict, unordered_map<char, int>& visit_map, unordered_map<char, vector<char>>& Graph) {
+        if (visit_map[c_char] == working_on) {
+            return cycle_detect;
+        }
+
+        if (visit_map[c_char] == not_visit) {
+            visit_map[c_char] = working_on;
+            for (char to_char : Graph[c_char]) {
+                // cout << c_char << " to: " << to_char << endl;
+                if (visit_map[to_char] == not_visit) {
+                    idx = dfs(to_char, idx, alien_dict, visit_map, Graph);
+                    if (idx == cycle_detect) return cycle_detect;
+                }
+            }
+            alien_dict[idx] = c_char;
+            cout << "alien_dict[" << idx << "]: " << alien_dict[idx] << endl;
+            idx--;
+
+        }
+        return idx;
+    }
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

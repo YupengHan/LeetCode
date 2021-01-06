@@ -6,23 +6,18 @@ private:
     int visited = 2;
     int detect_cycle = -2;
 public:
-    int buildGraph(string word1, string word2, unordered_map<char, vector<char>>& Graph) {
+    bool buildGraph(string word1, string word2, unordered_map<char, vector<char>>& Graph) {
         int min_cnt = min(word1.size(), word2.size());
         for (int i = 0; i < min_cnt; ++i) {
             if (word1[i] != word2[i]) {
                 vector<char> child_toList = Graph[word2[i]];
-                for (auto coi : child_toList) {
-                    if (coi == word1[i]) {
-                        return detect_cycle;
-                    }
-                }
 
                 Graph[word1[i]].push_back(word2[i]);
-                return 0;
+                return true;
             }
         }
-        if (word1.size() > word2.size()) return detect_cycle;
-        return 0;
+        if (word1.size() > word2.size()) return false;
+        return true;
     }
 
 
@@ -45,8 +40,7 @@ public:
 
         // Build Graph
         for (int i = 1; i < words.size(); ++i) {
-            int sig  = buildGraph(words[i-1], words[i], Graph);
-            if (sig == detect_cycle) return "";
+            if (!buildGraph(words[i-1], words[i], Graph)) return "";
         }
         // Check the Graph Correct Or Not
         // unordered_map<char, vector<char>>::iterator giter;

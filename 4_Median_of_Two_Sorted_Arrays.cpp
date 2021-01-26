@@ -47,11 +47,12 @@ private:
         
         int i = min(K/2, n1);
         int j = K - i;
-        if (nums1[idx1+i - 1] > nums2[idx2+i - 1]) {
-            return findKth(nums1, nums2, K-i, n1-i, n2, idx1+i, idx2);
+        if (nums1[idx1+i - 1] > nums2[idx2+j - 1]) {
+            return findKth(nums1, nums2, K-j, n1, n2-j, idx1, idx2+j);
+
         }
         else {
-            return findKth(nums1, nums2, K-j, n1, n2-j, idx1, idx2+j);
+            return findKth(nums1, nums2, K-i, n1-i, n2, idx1+i, idx2);
         }
     }
 public:
@@ -60,11 +61,15 @@ public:
         int l2 = nums2.size();
         int half = (l1 + l2 + 1)/2;
         double m1 = findKth(nums1, nums2, half, l1, l2, 0, 0);
+        cout << "m1: " << m1 << endl;
         if((l1 + l2) % 2 == 1){
+            
             return m1;
         }
         else {
+
             double m2 = findKth(nums1, nums2, half+1, l1, l2, 0, 0);
+            cout << "m2: " << m1 << endl;
             return (m1+m2)/2.0;
         }
     }

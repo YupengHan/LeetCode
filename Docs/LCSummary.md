@@ -25,7 +25,7 @@ for (i = 0; i < n; i++) {
 void digui(string str,int begin,int l,vector<string> &res)
     {
         if(begin==l)
-            res.push_back(str);
+            res.push_back(str)
         else
         {
             for(int i=begin;i<=l;i++)
@@ -48,3 +48,32 @@ void digui(string str,int begin,int l,vector<string> &res)
         return res;        
     }
 ```
+
+- Kth Smallest in sorted matrix
+    - Use queue, each time remove one item and add it's neighbor
+    - Usage of queue with your own class
+    ```C++
+    class mypair {
+        int x, y, val;
+        mapair(int _x, int _y, int _val) {
+            this->x = _x;
+            this->y = _y;
+            this->val = _val;
+        }
+    };
+
+    struct mycompare {
+    public:
+        bool operator() (mypair& a, mypair& b) {
+            return a.val > b.val;
+        }
+    }
+
+    priority_queue<mypair, vecotor<mypair>, mycompare> minH;
+
+    ```
+    - 378, 1439(Hard), 373(convert two array into a matrix, then similar to 378)
+
+
+
+
